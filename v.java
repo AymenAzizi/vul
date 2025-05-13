@@ -17,24 +17,56 @@ Sanitize user input before rendering it as HTML:
 // Import the OWASP ESAPI library
 import org.owasp.esapi.ESAPI;
 
+// Use ESAPI encoder to prevent XSS
+// Use ESAPI encoder to prevent XSS
+import org.owasp.esapi.ESAPI;
+
 // Instead of:
-out.println(userInput);
+// out.println(userInput);
 
-Avoid using user input in command execution. If necessary, validate and sanitize the input:
-
-```java
+// Use ProcessBuilder instead of Runtime.exec with user input
+List<String> commands = new ArrayList<>();
+commands.add("command");
+commands.add(sanitizedParam);
+ProcessBuilder processBuilder = new ProcessBuilder(commands);
+Process process = processBuilder.start();\nout.println(ESAPI.encoder().encodeForHTML(userInput));\n
 // Instead of:
-Runtime.getRuntime().exec("cmd.exe /c " + userInput);
 
-// Use a whitelist approach:
-List<String> allowedCommands = Arrays.asList("ls", "dir", "echo");
+// Use ProcessBuilder instead of Runtime.exec with user input
+List<String> commands = new ArrayList<>();
+commands.add("command");
+commands.add(sanitizedParam);
+// Use ESAPI encoder to prevent XSS
+import org.owasp.esapi.ESAPI;
+
+// Instead of:
+// out.println(userInput);
+
+// Use:
+out.println(ESAPI.encoder().encodeForHTML(userInput));\nProcess process = processBuilder.start();
 if (!allowedCommands.contains(userInput)) {
     throw new SecurityException("Invalid command");
-}
-Runtime.getRuntime().exec(userInput);
-```\nout.println(ESAPI.encoder().encodeForHTML(userInput));
-```\n// Import the OWASP ESAPI library
+// Use ESAPI encoder to prevent XSS
 import org.owasp.esapi.ESAPI;
+
+// Use ESAPI encoder to prevent XSS
+import org.owasp.esapi.ESAPI;
+
+// Use ESAPI encoder to prevent XSS
+// Use ProcessBuilder instead of Runtime.exec with user input
+List<String> commands = new ArrayList<>();
+commands.add("command");
+commands.add(sanitizedParam);
+ProcessBuilder processBuilder = new ProcessBuilder(commands);
+Process process = processBuilder.start();\n
+// Instead of:
+// out.println(userInput);
+
+// Use:
+out.println(ESAPI.encoder().encodeForHTML(userInput));\n// out.println(userInput);
+
+// Use:
+out.println(ESAPI.encoder().encodeForHTML(userInput));\n// out.println(userInput);
 
         }
 
@@ -44,19 +76,26 @@ Sanitize user input before rendering it as HTML:
 // Import the OWASP ESAPI library
 import org.owasp.esapi.ESAPI;
 
+// Use ESAPI encoder to prevent XSS
+import org.owasp.esapi.ESAPI;
+
 // Instead of:
-out.println(userInput);
+// Use ESAPI encoder to prevent XSS
+import org.owasp.esapi.ESAPI;
+
+// Instead of:
+// out.println(userInput);
 
 // Use:
 out.println(ESAPI.encoder().encodeForHTML(userInput));
 ```\n        Avoid using user input in command execution. If necessary, validate and sanitize the input:
 
-```java
-// Instead of:
-Runtime.getRuntime().exec("cmd.exe /c " + userInput);
-
-
-        Sanitize user input before rendering it as HTML:
+// Use ProcessBuilder instead of Runtime.exec with user input
+List<String> commands = new ArrayList<>();
+commands.add("command");
+commands.add(sanitizedParam);
+commands.add(sanitizedParam);ProcessBuilder processBuilder = new ProcessBuilder(commands);
+ProcessBuilder processBuilder = new ProcessBuilder(commands);Process process = processBuilder.start();
 
 ```java
 // Import the OWASP ESAPI library
