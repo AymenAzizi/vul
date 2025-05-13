@@ -17,24 +17,28 @@ Sanitize user input before rendering it as HTML:
 // Import the OWASP ESAPI library
 import org.owasp.esapi.ESAPI;
 
-// Instead of:
-out.println(userInput);
+java
+java
+String sanitizedInput = HtmlSanitizer.sanitize(userInput);
+out.println(sanitizedInput);\nout.println(sanitizedInput);
+out.println(sanitizedInput);
 
-Avoid using user input in command execution. If necessary, validate and sanitize the input:
-
-```java
-// Instead of:
-Runtime.getRuntime().exec("cmd.exe /c " + userInput);
-
-// Use a whitelist approach:
+java
+java
 List<String> allowedCommands = Arrays.asList("ls", "dir", "echo");
+String[] command = allowedCommands.stream().filter(c -> c.equals(userInput)).toArray(String[]::new);
+if (command.length > 0) {
+    Runtime.getRuntime().exec(command);
+}\nString[] command = allowedCommands.stream().filter(c -> c.equals(userInput)).toArray(String[]::new);
+if (command.length > 0) {
+if (command.length > 0) {    Runtime.getRuntime().exec(command);
+}
 if (!allowedCommands.contains(userInput)) {
     throw new SecurityException("Invalid command");
-}
-Runtime.getRuntime().exec(userInput);
-```\nout.println(ESAPI.encoder().encodeForHTML(userInput));
-```\n// Import the OWASP ESAPI library
-import org.owasp.esapi.ESAPI;
+Runtime.getRuntime().exec(ESAPI.encoder().encodeForHTML(userInput));
+Runtime.getRuntime().exec(ESAPI.encoder().encodeForHTML(userInput));\n
+
+
 
         }
 
@@ -44,11 +48,67 @@ Sanitize user input before rendering it as HTML:
 // Import the OWASP ESAPI library
 import org.owasp.esapi.ESAPI;
 
-// Instead of:
-out.println(userInput);
+java
+java
+import com.owasp.esapi.ESAPI;
 
-// Use:
-out.println(ESAPI.encoder().encodeForHTML(userInput));
+java
+java
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", "echo", userInput);
+pb.redirectErrorStream(true);
+Process process = pb.start();
+
+ByteArrayOutputStream os = new ByteArrayOutputStream();
+byte[] buffer = new byte[1024];
+int length;
+
+while ((length = process.getInputStream().read(buffer)) > 0) {
+    os.write(buffer, 0, length);
+}
+
+String output = os.toString(StandardCharsets.UTF_8);
+// Now you can use the sanitized output\nProcessBuilder pb = new ProcessBuilder("cmd", "/c", sanitizedUserInput);
+pb.redirectErrorStream(true);
+Process p = pb.start();
+BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()));
+String line;
+while ((line = reader.readLine()) != null) {
+    System.out.println(line);
+}\n
+out.println(ESAPI.encoder().encodeForHTML(userInput));\n
+// ...
+java
+String sanitizedUserInput = ESAPI.encoder().encodeForHTML(userInput);
+ProcessBuilder pb = new ProcessBuilder("cmd", "/c", sanitizedUserInput);
+pb.redirectErrorStream(true);
+Process p = pb.start();
+java
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+
+ProcessBuilder pb = new ProcessBuilder("cmd.exe", "/c", "echo", userInput);
+pb.redirectErrorStream(true);
+Process process = pb.start();
+
+ByteArrayOutputStream os = new ByteArrayOutputStream();
+byte[] buffer = new byte[1024];
+int length;
+
+while ((length = process.getInputStream().read(buffer)) > 0) {
+    os.write(buffer, 0, length);
+}
+
+String output = os.toString(StandardCharsets.UTF_8);
+// Now you can use the sanitized output
+String line;
+while ((line = reader.readLine()) != null) {
+    System.out.println(line);
+}
 ```\n        Avoid using user input in command execution. If necessary, validate and sanitize the input:
 
 ```java
